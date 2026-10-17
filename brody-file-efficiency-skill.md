@@ -1,13 +1,13 @@
 ---
 name: brodys-file-efficiency-system
-description: Sets up an AI-independent, file-based knowledge base (journals, backlog, decisions, logs), installs a real engineering skill workflow, and builds custom skills from the user's repeated tasks. Use when the user asks to set up their project files, knowledge base, or workflow efficiency system, says "run the file efficiency system", or asks to check, repair, or customize that setup.
+description: Sets up an AI-independent, file-based knowledge base (journals, backlog, decisions, logs) for any kind of project, installs a real planning and engineering skill workflow, and builds custom skills from the user's repeated tasks. Use when the user asks to set up their project files, knowledge base, or workflow efficiency system, says "run the file efficiency system", or asks to check, repair, or customize that setup.
 ---
 
 # Brody's File Efficiency System
 
-You are the project operator. Build an AI-independent knowledge base in a folder on the user's PC. Then set up an engineering workflow and custom skills on top of it. The files are the source of truth. Chat memory is not. Any AI must be able to read the folder and continue the work.
+You are the project operator. Build an AI-independent knowledge base in a folder on the user's computer. Then set up a planning and engineering workflow and custom skills on top of it. The files are the source of truth. Chat memory is not. Any AI must be able to read the folder and continue the work.
 
-Default project context: a game built in Unreal Engine, with models made in Blender through a Blender MCP connection. If the user's project differs, adapt interview questions 1-4 and 9-16 to the real stack. Keep the rest.
+This skill works for any project: software, games, design, writing, research, business, content, or anything else. The interview in Step 1 identifies the project. Adapt every example, folder name, and tool reference to what the user actually does. Examples in this file are samples, not requirements.
 
 ## MODEL AND EFFORT FOR THIS RUN
 
@@ -19,7 +19,7 @@ Spend tokens where they matter. Tiers mean the newest model in each family: Top 
 | 4, 5, 7, 9, 10, 10B, 11 | Mid | Medium | Installs, hooks, building skills, verification |
 | 6 (first grill, ADRs) | Top | Medium | Wrong design decisions are costly |
 
-The user's pick always wins. Step 10B builds the permanent version of this table for the game workflow.
+The user's pick always wins. Step 10B builds the permanent version of this table for the user's own work.
 
 ## RULES
 
@@ -30,18 +30,18 @@ The user's pick always wins. Step 10B builds the permanent version of this table
 - Keep /00_START_HERE.md under 150 lines. Link out to detail files.
 - Confirm before deleting or overwriting anything. Move retired files to /_archive instead of deleting.
 - Never store passwords, API keys, or payment data in the knowledge base.
-- Keep the knowledge base folder separate from the project folder. For Unreal, never put Content, Saved, Intermediate, or Binaries inside the knowledge base. Link to the project by path.
-- Use Windows-safe paths and filenames: no special characters, lowercase-kebab-case, dates as YYYY-MM-DD.
+- Keep the knowledge base folder separate from the project's working files (code, art, manuscripts, source data, build output). Link to the project by path. Never copy large or generated files into the knowledge base.
+- Use safe paths and filenames on every operating system: no special characters, lowercase-kebab-case, dates as YYYY-MM-DD.
 - Check whether a tool, connector, or skill can do a task before telling the user to do it by hand.
 - Install third-party skills only from the repo named in Step 5. Show each install command and wait for the user's OK before running it.
 - Pending-plan rule: when the user and AI agree on a change that is not built yet, write it to /01_state/pending/YYYY-MM-DD-name.md in the same turn (what, why, files touched, steps left, owner). Every new chat and every context compaction starts by reading /01_state/pending/. When done, mark the file done and move it to /_archive/pending/.
 - Expectations: /01_state/expectations.md holds standing rules for anyone working on the project, newest last. Read it every session. Append a rule only when the user states it as standing. Never rewrite old rules; mark them superseded.
-- Speed rules: test only what changed. No helper agents for small jobs. Run one heavy job at a time (Unreal build, cook, shader compile, Blender bake). Read only the files the change needs. Run a script instead of re-reasoning a repeatable step.
+- Speed rules: test or check only what changed. No helper agents for small jobs. Run one heavy job at a time (a build, render, export, batch run, or large data job). Read only the files the change needs. Run a script instead of re-reasoning a repeatable step.
 - If a skill named brody-comms is installed, follow it for every reply. Otherwise follow OUTPUT STYLE at the end.
 
 ## SKILL DESIGN RULES (apply to every skill you build)
 
-1. Script first, prompt second. Any repeatable step becomes a script the skill calls (for example a Blender Python export script, an Unreal Editor Python import script, an asset-name validator). Do not make the AI re-derive a repeatable step each run.
+1. Script first, prompt second. Any repeatable step becomes a script the skill calls (for example a file-renaming script, an export script, a data-cleanup script, a link checker). Do not make the AI re-derive a repeatable step each run.
 2. One job per skill. Write a specific trigger in the description. Similar skills fight over triggers.
 3. Follow the writing-for-agents skill (from Step 5) when writing skills and pointer files.
 4. Cap the first batch at 5 custom skills.
@@ -61,11 +61,13 @@ Ask the user to export past AI chats (any tool) and drop them in a folder you ca
 
 Ask 20 multiple-choice questions in 5 batches of 4. Wait for answers after each batch. Each question has lettered options plus "Other (I'll type it)". Do not skip any question.
 
+Questions 1, 5-8, and 17-20 are fixed. Questions 2-4 and 9-16 are templates: after Q1, rewrite their options so they fit the user's project type. Keep the intent and the numbering. Offer 4-7 real options per question, not generic filler.
+
 Batch 1: Project
-1. Game genre? a) Action/adventure b) Shooter c) RPG d) Horror e) Puzzle/platformer f) Sim/strategy g) Other
-2. Project stage? a) Idea only b) Prototype c) Vertical slice d) Mid-production e) Near release
-3. Target platform? a) PC only b) PC + console c) Mobile d) VR e) Undecided
-4. Target release date? a) No date b) Within 6 months c) 6-12 months d) 1-2 years e) 2+ years
+1. What kind of project is this? a) Software or app b) Game c) Design, art, or media production d) Writing or publishing e) Research or study f) Business or operations g) Content or marketing h) Other
+2. Project stage? a) Idea only b) Early prototype or draft c) Working version d) Mid-production e) Near launch or delivery f) Ongoing, already live
+3. Who is the final audience or customer? (Adapt options to Q1.) a) Just me b) Clients c) The public d) Internal team e) Not decided
+4. Target date? a) No date b) Within 6 months c) 6-12 months d) 1-2 years e) 2+ years
 
 Batch 2: Team and tools
 5. Team size? a) Solo b) 2-3 people c) 4-10 d) 10+
@@ -73,34 +75,34 @@ Batch 2: Team and tools
 7. Who uses the knowledge base? a) Only me b) Me and a partner c) A small team d) Contractors will read it too
 8. Which AI tool do you use most? (Sets the skill install method.) a) Claude Code b) Claude desktop app c) Codex d) Cursor or VS Code Copilot e) Gemini CLI f) Other
 
-Batch 3: Tech setup
-9. Unreal Engine version? a) 5.4 b) 5.5 c) 5.6 or newer d) 4.x e) I'm not sure
-10. Code approach? a) Blueprints only b) Mostly Blueprints, some C++ c) Mostly C++ d) Undecided
-11. Version control for the project? a) None yet b) Git c) Git + LFS d) Perforce e) Other
-12. Blender MCP use today? a) Generate models from prompts b) Edit/clean existing models c) Materials and textures d) Rigging/animation e) Mix of these f) Not set up yet
+Batch 3: Tools and setup (build options from Q1; examples below)
+9. Main tool or platform? Examples: software = language and framework; game = engine and version; design = main design app; writing = writing app and publishing platform; business = main systems; research = analysis tools.
+10. How do you build or produce the main work? Examples: software = hand-coded, generated, low-code; game = code, visual scripting, or both; writing = draft by hand, AI-assisted, edit-only; design = hand-made, generated, templates.
+11. Version control for the project's files? a) None yet b) Git c) Git + Git LFS (large files) d) Another system e) Not sure
+12. Which connected AI tools or integrations do you use today (MCP servers, plugins, automations)? a) None yet b) One or two c) Many d) Want help choosing. Ask which ones in a follow-up and list them for the MCP inventory.
 
-Batch 4: Assets and pipeline
-13. Where do assets come from? a) All made by me b) Blender + marketplace c) Mostly marketplace d) AI-generated + cleanup e) Mix of everything
-14. Asset naming convention? a) None yet b) Unreal standard (SM_, T_, M_, BP_) c) My own d) Help me pick one
-15. Biggest time sink right now? a) Modeling b) Texturing/materials c) Importing into Unreal d) Level design e) Gameplay code/Blueprints f) Bugs g) Planning and tracking
-16. Do you track asset licenses and AI-generation disclosure (needed for Steam and other stores)? a) Yes, already b) No c) No, but I want to start d) Not sure what that means
+Batch 4: Materials and pipeline
+13. Where do materials come from? (Assets, sources, references, data, code libraries, templates.) a) All made by me b) Mostly made, some bought or free c) Mostly bought or free d) AI-generated plus cleanup e) Mix of everything
+14. File and naming convention? a) None yet b) A standard for my field c) My own d) Help me pick one
+15. Biggest time sink right now? (Build options from Q1.) Examples: software = debugging, testing, deploys; game = modeling, importing, level design; writing = drafting, editing, formatting; design = production, revisions, exports; business = admin, reporting, follow-ups; all = planning and tracking.
+16. Do you track licenses, sources, and AI-generation disclosure for what you use or publish? a) Yes, already b) No c) No, but I want to start d) Not sure what that means
 
 Batch 5: Knowledge base and workflow
 17. Folder depth? a) Minimal (under 10 folders) b) Moderate c) Detailed d) You decide
-18. Backup and sync? (Choose one.) a) Private GitHub repo for the knowledge base (needed for end-session) b) GitHub repo + OneDrive/Google Drive sync c) OneDrive/Google Drive sync only d) External drive copies e) None
+18. Backup and sync? (Choose one.) a) Private GitHub repo for the knowledge base (needed for end-session) b) GitHub repo + cloud drive sync c) Cloud drive sync only d) External drive copies e) None
 19. Self-improvement depth? a) Light: update lessons after each session b) Standard: lessons log + weekly review + /retro each session c) Strict: standard + monthly rule audit d) Off
 20. Where do tickets live? a) Local Markdown files in the knowledge base b) GitHub Issues c) Both: GitHub Issues primary, mirrored locally d) Other
 
 ## STEP 2: CREATE THE FOLDER
 
-Ask where on the PC to create it. Scale the structure to Q17. Minimum:
+Ask where on the computer to create it. Scale the structure to Q17. Minimum:
 
 ```
 /00_START_HERE.md        Handoff file: rules, file map, resume prompt, "which skill when" table
 /01_state/               current-status.md, roadmap.md, milestones.md (definition of done per milestone),
                          settings.md, expectations.md, locked-facts.json,
                          pending/ (agreed but unbuilt changes, one dated file each)
-/02_backlog/             backlog.csv, bugs.csv, done.csv, tickets/, specs/ (if Q20 = a or c)
+/02_backlog/             backlog.csv, bugs.csv (issues or defects), done.csv, tickets/, specs/ (if Q20 = a or c)
 /03_decisions/           decision-log.md, adr/
 /04_logs/
   daily/YYYY-MM-DD.md    One entry per session, links to topic journals touched
@@ -108,13 +110,11 @@ Ask where on the PC to create it. Scale the structure to Q17. Minimum:
   journals/              Two files per topic, side by side:
                            <topic>.md      working file, current truth only (sections below)
                            <topic>-log.md  append-only history; split by month past ~300 lines
-    topics: app-build  unreal-code  blender  assets-and-import
-    level-and-design  art-and-audio  bugs-and-testing  tools-and-workflow
-    (add or drop topics based on Q10, Q12, Q15)
+    core topics: project-work  materials-and-sources  issues-and-testing  tools-and-workflow
+    add one topic per major area from Q9, Q10, Q12, Q15 (see examples below); drop any that do not apply
   changelog.md
-/05_game/                GLOSSARY.md, design-doc, systems, art-direction, asset-pipeline,
-                         naming-conventions, unreal-setup, blender-mcp-setup
-/06_assets/              asset-register.csv (name, source, license, AI-generated y/n, used y/n)
+/05_project/             GLOSSARY.md, overview, plus detail docs for the project's own areas
+/06_materials/           materials-register.csv (name, source, license, AI-generated y/n, used y/n)
 /07_research/            references, competitors, tutorials (cite sources)
 /08_prompts-and-skills/  registry.md, skills/ (backup copy of every skill), scripts/, templates/
 /09_improvement/         lessons-learned.md, mistakes-log.md, rules-candidates.md, weekly-review/
@@ -122,23 +122,31 @@ Ask where on the PC to create it. Scale the structure to Q17. Minimum:
 /_archive/               retired files, superseded-facts/<topic>.md, pending/, skill-versions/
 ```
 
-Create /08_prompts-and-skills/templates/ with templates for: ticket, ADR, journal working file, log entry, bug report, pending plan. Create /07_ops-style files only if the user asks.
+Example topic journals by project type (pick what fits, invent the rest from the interview):
+- Software: backend, frontend, data, deploys, testing
+- Game: engine code, 3D or 2D art, level design, audio, build and release
+- Design or media: concept, production, revisions, exports, client feedback
+- Writing or publishing: outline, drafting, editing, formatting, publishing and marketing
+- Research: sources, methods, analysis, writing
+- Business: operations, finance, customers, marketing, hiring
+
+Create /08_prompts-and-skills/templates/ with templates for: ticket, ADR, journal working file, log entry, issue report, pending plan.
+
+Create /04_logs/journals/tools-and-workflow.md with an MCP and integrations inventory section: each connected server or tool, what it does, known quirks.
 
 Every topic working file (<topic>.md) has exactly these sections:
 - Charter: what this topic covers, in 2-3 lines. Rarely changes.
 - Current state: where the work stands now. Rewrite it, do not append.
-- Standing facts: settled facts that stay true until replaced (engine version, export scale, naming rules).
+- Standing facts: settled facts that stay true until replaced (tool versions, export settings, naming rules, style rules).
 - Waiting on me: open questions and decisions only the user can make.
 Rule: the working file holds current truth only. When a fact changes, move the old wording to /_archive/superseded-facts/<topic>.md with the date, then write the new one. Everything that happened goes in <topic>-log.md, append-only, newest last. Never edit old log lines.
 
-Locked facts: /01_state/locked-facts.json lists facts that must read the same everywhere (engine version, project name, naming prefixes, store target, milestone dates). Format: [{"id": "engine-version", "value": "5.5", "must_appear_in": ["05_game/unreal-setup.md"], "stale_patterns": ["5\\.4"]}]. Fill it from interview answers and the first grill.
+Locked facts: /01_state/locked-facts.json lists facts that must read the same everywhere (project name, main tool version, naming prefixes, target platform, milestone dates). Format: [{"id": "tool-version", "value": "2.1", "must_appear_in": ["05_project/setup.md"], "stale_patterns": ["2\\.0"]}]. Fill it from interview answers and the first grill.
 
-Scripts to create in /08_prompts-and-skills/scripts/ (plain Python, Windows-safe):
+Scripts to create in /08_prompts-and-skills/scripts/ (plain Python, works on every operating system):
 - check_paths.py: scans every .md file for links and file paths and reports ones that do not exist.
 - check_facts.py: reads locked-facts.json and reports any stale pattern found and any must_appear_in file missing the value.
 Run both in end-session and in Step 11. Report findings. Do not auto-fix facts without the user's OK.
-
-Create /04_logs/journals/tools-and-workflow.md with an MCP inventory section: each connected MCP server, what it does, known quirks.
 
 Seed /01_state/expectations.md with 3-5 rules from the interview (for example the naming convention, the backup rule, the speed rules). Show them to the user.
 
@@ -153,7 +161,7 @@ Ask for all notes, TODOs, repo issues, and chat exports. Convert to backlog.csv 
 Knowledge base, based on Q18:
 1. Check that Git is installed. If not, give the install link.
 2. Run git init in the knowledge base folder.
-3. Create a .gitignore: secrets and .env files, OS junk (Thumbs.db, desktop.ini), Unreal and Blender generated or binary files (Content, Saved, Intermediate, Binaries, DerivedDataCache, *.blend1, *.uasset, *.umap).
+3. Create a .gitignore: secrets and .env files, OS junk (Thumbs.db, desktop.ini, .DS_Store), and generated or binary files for the user's tools (from Q9-Q12; for example build output, caches, dependency folders, render output, large media).
 4. Help create a private GitHub repo and set it as origin. Check for the GitHub CLI or a GitHub connector before telling the user to do any step by hand.
 5. Make the first commit and push.
 If Q18 = no GitHub, skip steps 4-5 and make local commits only.
@@ -163,52 +171,52 @@ Safety hooks (so safety does not depend on the AI remembering rules):
 - Block force push: set up a pre-push hook or the AI tool's hook system (for example Claude Code hooks) to reject `--force` and `--force-with-lease`.
 - Test each hook with a harmless fake secret. Show the user the result.
 
-Permissions allowlist: propose a list of commands the AI may run without asking (git status, git diff, file reads, builds, tests). Require confirmation for deletes, pushes, installs, and anything outside the two folders. Show the list. Apply it only after the user's OK, using the AI tool's own permission settings.
+Permissions allowlist: propose a list of commands the AI may run without asking (git status, git diff, file reads, and the project's normal builds, checks, or tests). Require confirmation for deletes, pushes, installs, and anything outside the two folders. Show the list. Apply it only after the user's OK, using the AI tool's own permission settings.
 
-Game project: if Q11 = a, set up Git for the game project first, with an Unreal-specific .gitignore and Git LFS for large binaries. The engineering skills in Step 5 assume a Git repo. If Q11 = d (Perforce), say which skills still apply and which do not.
+Project files: if the project has files worth versioning and Q11 = a, set up Git for it first, with a .gitignore that fits its tools and Git LFS for large binaries. The engineering skills in Step 5 assume a Git repo for code. If Q11 = d (another system), say which skills still apply and which do not. If the project has no code, say so and use the planning skills only.
 
-Backup gap: the knowledge base repo does not cover game assets. State this, and confirm the game project has its own off-machine backup (Git LFS remote, Perforce server, or a scheduled copy).
+Backup gap: the knowledge base repo does not cover the project's own large files. State this, and confirm the project files have their own off-machine backup (Git LFS remote, cloud storage, or a scheduled copy).
 
-## STEP 5: INSTALL THE ENGINEERING SKILLS
+## STEP 5: INSTALL THE PLANNING AND ENGINEERING SKILLS
 
 Source: https://github.com/mattpocock/skills
 1. Pick the install method from the README that matches Q8. Use one method only (plugin OR npx). Both together install every skill twice. If the method needs Node.js or npm, check it is installed.
 2. Show the exact command. Wait for OK. Run it. If the installer asks which skills to take, include the setup skill.
-3. Run the setup skill (setup-matt-pocock-skills) once, in the game project repo. Give the agent both folders. Answer its questions from the interview:
+3. Run the setup skill (setup-matt-pocock-skills) once, in the project repo (or in the knowledge base if the project has no code repo). Give the agent both folders. Answer its questions from the interview:
    - Issue tracker: from Q20. Local files go in /02_backlog/tickets/.
-   - Triage labels: propose defaults for a game project. Show before applying.
-   - Docs location: GLOSSARY.md in /05_game/, ADRs in /03_decisions/adr/.
-   If the setup skill cannot point outside the game repo, say so. Propose a fallback that keeps one source of truth (docs in the game repo plus a pointer file in the knowledge base). Wait for the user's choice.
+   - Triage labels: propose defaults that fit the project type. Show before applying.
+   - Docs location: GLOSSARY.md in /05_project/, ADRs in /03_decisions/adr/.
+   If the setup skill cannot point outside the project repo, say so. Propose a fallback that keeps one source of truth (docs in the project repo plus a pointer file in the knowledge base). Wait for the user's choice.
 4. Write a "which skill when" table into /00_START_HERE.md, built from the README's current skill list. Start from these mappings and drop any that do not fit:
-   - grill-with-docs: before every new feature or system change. Updates GLOSSARY.md and ADRs.
-   - grill-me: planning with no code (story, scope).
-   - to-spec then to-tickets: turn a planned feature into a spec and tickets.
-   - tdd: pure gameplay logic in C++ (Unreal automation tests). Skip for Blueprints, levels, art.
-   - diagnosing-bugs: crashes, hard bugs, performance drops.
-   - prototype: throwaway mechanic prototypes.
+   - grill-with-docs: before every new feature, chapter, campaign, or system change. Updates GLOSSARY.md and ADRs.
+   - grill-me: planning with no build work (scope, strategy, outline).
+   - to-spec then to-tickets: turn a planned piece of work into a spec and tickets.
+   - tdd: code with automated tests. Skip for non-code work.
+   - diagnosing-bugs: failures, hard problems, performance or quality drops.
+   - prototype: throwaway experiments.
    - research: cited notes saved to /07_research/.
    - handoff: long chats, or before switching AI tools.
    - wait-what: when an explanation does not land.
    - retro: end of session (Q19 = b or c).
-   - improve-codebase-architecture, code-review, implement: C++ work only (Q10 = b or c).
-   - wayfinder: whole-game or milestone-sized planning.
+   - improve-codebase-architecture, code-review, implement: code projects only.
+   - wayfinder: whole-project or milestone-sized planning.
    - writing-for-agents: when writing skills and pointer files.
-   State where these skills fit poorly in an Unreal and Blender workflow (Blueprints, levels, art, MCP modeling) and what to use instead.
+   State where these skills fit poorly for this project type (anything that is not code) and what to use instead.
 
 ## STEP 6: FIRST GRILL
 
 Run grill-with-docs on the project. Goals:
-- Build the first /05_game/GLOSSARY.md (core mechanics, asset types, level and world terms).
+- Build the first /05_project/GLOSSARY.md (the project's core terms, as the user uses them).
 - Write ADRs for the decisions behind Q9, Q10, Q11.
 - Record open questions in /01_state/current-status.md.
-- Draft /01_state/milestones.md: one page per milestone (prototype, vertical slice, alpha, beta, release) with pass/fail criteria.
+- Draft /01_state/milestones.md: one page per milestone (name them from the project type and Q2) with pass/fail criteria.
 
 ## STEP 7: END-SESSION SKILL
 
 Build a skill named "end-session" in /08_prompts-and-skills/end-session/SKILL.md. Follow the skill design rules above. Tell the user how to install it for their AI tool. When the user says "end session" (or similar), it runs:
 1. Read what changed this session.
 2. For each topic touched: rewrite Current state, move any replaced fact to /_archive/superseded-facts/<topic>.md, update Waiting on me, and append dated lines to <topic>-log.md. Write the daily entry and link the journals. Check /01_state/pending/ and mark finished plans done.
-3. Update current-status.md, backlog.csv, tickets, bugs.csv, done.csv, decision-log.md, GLOSSARY.md, asset-register.csv, lessons-learned.md, and registry.md (last-used dates) as needed.
+3. Update current-status.md, backlog.csv, tickets, bugs.csv, done.csv, decision-log.md, GLOSSARY.md, materials-register.csv, lessons-learned.md, and registry.md (last-used dates) as needed.
 4. Run check_paths.py and check_facts.py. Report findings. Scan staged changes for secrets. If found, stop, name the file, ask.
 5. Run git status. Show a short summary of what will be committed.
 6. Commit: "YYYY-MM-DD: short summary of the session".
@@ -220,13 +228,15 @@ This skill never calls another user-invoked skill. The user runs /retro before e
 ## STEP 8: HANDOFF, SAVE, AND RESUME
 
 Write a resume prompt in /00_START_HERE.md:
-"Read /00_START_HERE.md, then /01_state/current-status.md, then /05_game/GLOSSARY.md, then /02_backlog/backlog.csv. Summarize where we are and propose the next action."
+"Read /00_START_HERE.md, then /01_state/current-status.md, then /05_project/GLOSSARY.md, then /02_backlog/backlog.csv. Summarize where we are and propose the next action."
 Test it: summarize the project from the files alone and show the user.
+
 Build two more skills in /08_prompts-and-skills/ (follow the skill design rules; both Light / Low):
 - save-session: a mid-chat checkpoint for when the chat is long or the user must stop. It writes any agreed-but-unbuilt work to /01_state/pending/, updates the working file of each topic touched, appends to the logs, and writes a handoff file to /04_logs/handoffs/YYYY-MM-DD-hhmm.md (what was done, what is in progress, exact next action, files open, commands to re-run). It does not commit or push.
 - resume-session: for a new chat, a new AI tool, or after compaction. It reads, in order: 00_START_HERE.md, expectations.md, /01_state/pending/, the newest file in /04_logs/handoffs/, current-status.md, the working files of the topics named in the handoff, then the top 10 backlog items. It replies with where things stand, what is pending, and the one next action.
 Difference from end-session: save-session is a checkpoint with no Git. end-session closes the day and commits.
-Create a one-line pointer file for each AI tool the user uses (CLAUDE.md, AGENTS.md) in both the knowledge base and the game project. Each says only: "Read <path to knowledge base>/00_START_HERE.md."
+
+Create a one-line pointer file for each AI tool the user uses (CLAUDE.md, AGENTS.md) in both the knowledge base and the project folder. Each says only: "Read <path to knowledge base>/00_START_HERE.md."
 
 ## STEP 9: SELF-IMPROVEMENT LOOPS
 
@@ -241,17 +251,14 @@ Use the depth from Q19.
 
 ## STEP 10: CUSTOM SKILL OFFER
 
-Use repeat-task-audit.md, the journals, the backlog, and the interview. Propose up to 5 custom skills. For each: name, what it does, trigger, scripts it needs, time saved. Candidates, when the audit supports them:
-- Blender-to-Unreal batch pipeline: export presets (scale, axis, pivots, FBX), Unreal import script, asset-register entry, in one run
-- Asset intake: naming, license check, asset-register entry
-- Asset naming and folder audit: checks the Content folder against the naming convention
-- Build and cook: packaged build through UAT (BuildCookRun), logs result, records failures in bugs-and-testing.md
-- Playtest intake: raw playtest notes to triaged bug tickets
-- Performance check: Unreal stat commands and Unreal Insights, results logged to a journal
-- Blueprint or C++ system documentation from a short description
-- Blender MCP session routine: scene setup, export settings, cleanup
-- Start-of-session routine
-- Store-page and AI-disclosure prep, as a recurring milestone check
+Use repeat-task-audit.md, the journals, the backlog, and the interview. Propose up to 5 custom skills. For each: name, what it does, trigger, scripts it needs, time saved. Build the candidates from the user's real repeated tasks. Examples by project type, when the audit supports them:
+- Software: test-and-deploy routine, release notes from commits, dependency update check, bug report to ticket
+- Game: asset import and naming pipeline, build and package, playtest notes to tickets, performance check
+- Design or media: export and delivery pipeline, file naming and folder audit, client feedback to task list, asset intake
+- Writing or publishing: chapter formatting, consistency check against the glossary, manuscript export, metadata and listing prep
+- Research: source intake with citation, literature summary, data cleaning, figure generation
+- Business: weekly report, invoice or follow-up routine, meeting notes to tasks, customer request triage
+- Any type: start-of-session routine, intake of new materials with license check and register entry, compliance or disclosure checklist before a launch
 Ask which to build. Build only the approved ones. Save drafts and scripts in /08_prompts-and-skills/. Add each to registry.md.
 
 ## STEP 10B: MODEL AND EFFORT SETUP (run before Step 11)
@@ -262,17 +269,17 @@ Goal: heavy models and high effort for hard thinking; light models and low effor
    a. Which models can you switch between in your AI tool? a) Three tiers (top, mid, light) b) Two tiers c) One model only d) Not sure (check the tool's model picker and tell me)
    b. How tight are your usage limits? a) I often hit them b) Sometimes c) Rarely d) I pay per token and cost matters
    c. Can your AI tool set a model or effort for a single task or helper agent? a) Only for the whole chat b) Yes, for helper agents too c) No d) Not sure (check and tell me)
-2. Build /08_prompts-and-skills/model-effort-defaults.md. Put the tier-to-model mapping at the top (check the vendor's current model list live, not from memory). Then one row per task type: task type, tier, effort, why. Starting rows, adjusted to the answers above:
-   - Architecture, ADRs, big design (grill-with-docs, wayfinder, to-spec): Top / Medium. High only for a one-off redesign.
-   - C++ gameplay code and hard bugs (tdd, diagnosing-bugs, implement, code-review): Top / Medium. High for crashes.
-   - Blueprint and system docs, GLOSSARY updates, ticket writing (to-tickets): Mid / Low.
-   - Blender MCP modeling sessions: Mid / Medium.
-   - Blender-to-Unreal export and import runs, asset intake, naming audit, build and cook: Light / Low. The script does the work.
+2. Build /08_prompts-and-skills/model-effort-defaults.md. Put the tier-to-model mapping at the top (check the vendor's current model list live, not from memory). Then one row per task type: task type, tier, effort, why. Starting rows, adjusted to the answers above and to the project type:
+   - Architecture, strategy, ADRs, big design (grill-with-docs, wayfinder, to-spec): Top / Medium. High only for a one-off redesign.
+   - Hard problems and tricky code or analysis (tdd, diagnosing-bugs, implement, code-review): Top / Medium. High for crashes or data loss.
+   - Documentation, glossary updates, ticket writing (to-tickets): Mid / Low.
+   - Creative or production sessions with a connected tool (modeling, design, drafting): Mid / Medium.
+   - Scripted pipeline runs (export, import, build, format, rename, intake): Light / Low. The script does the work.
    - Research: Mid / Medium.
-   - Playtest notes to tickets, bug triage: Mid / Low.
+   - Feedback or test notes to tickets, triage: Mid / Low.
    - Journals, end-session, save-session, resume-session, status and backlog edits, git: Light / Low.
    - Weekly review, retro: Mid / Low.
-   - Store page and AI-disclosure prep: Mid / Medium. Accuracy matters.
+   - Anything where accuracy has legal or financial weight (licenses, disclosures, tax, contracts): Mid / Medium, and say what to verify.
    Drop tiers the user does not have. With one model only, keep the effort column and skip the tier column.
 3. Rules for every session:
    - Start each task on its default. Go up one level only for a one-off hard job, then drop back.
@@ -332,7 +339,7 @@ Tell the user in plain words: this setup is a starting point, and every part can
 1. Which folders or journals do you not need?
 2. Which repeated work has no journal or skill yet?
 3. Which steps felt like too much?
-4. Which tools do you use that this setup ignores (for example Substance, Jira, Discord, Perforce)?
+4. Which tools do you use that this setup ignores?
 5. Which workflow should become a skill first?
 Apply the answers to this skill file, the folder, and settings.md. Archive the old skill version first, as in Step 11. Show the user what changed.
 
@@ -354,7 +361,7 @@ Write this section into /00_START_HERE.md under "How to change this system":
 |---|---|---|
 | Install command fails | Node.js or npm missing, or the README command changed | Check `node -v`. Install Node if missing. Re-read the README and use the current command. |
 | Skills appear twice | Plugin and npx both installed | Remove one method. Keep the one that matches Q8. |
-| Setup skill cannot use a docs path outside the game repo | Skill expects docs inside the repo | Use the fallback in Step 5: docs in the game repo, pointer file in the knowledge base. |
+| Setup skill cannot use a docs path outside the project repo | Skill expects docs inside the repo | Use the fallback in Step 5: docs in the project repo, pointer file in the knowledge base. |
 | git push asks for credentials or fails | No auth set up | Run `gh auth login` if the GitHub CLI is installed. Otherwise set up a credential manager and tell the user the exact steps. |
 | Hooks do not fire on Windows | Git Bash missing, or hook file not executable | Confirm Git for Windows is installed. Re-create the hook and re-test with the fake secret. |
 | AI asks permission for every command | No allowlist | Apply the allowlist from Step 4 in the AI tool's permission settings. |
