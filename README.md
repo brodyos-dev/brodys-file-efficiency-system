@@ -18,7 +18,7 @@ The file is plain text. Save it as SKILL.md inside a folder named brodys-file-ef
 ```
 
 3. Restart the chat or the tool so it loads the skill.
-4. In a new chat, type: `run the file efficiency system`
+4. Open a new chat connected to your project folder, then type: `run the file efficiency system`
 
 If the install fails:
 
@@ -29,11 +29,11 @@ To update later: run install step 2 again and restart the chat. The link always 
 
 ## How to use
 
-1. **Start it.** Open a new chat and type: `run the file efficiency system`.
+1. **Start it.** Open a new chat connected to your project folder (the folder that holds your project's files). In Claude Code or Codex, start the tool from that folder. In the Claude desktop app, connect the folder to the chat. Then type: `run the file efficiency system`.
 2. **Answer the 20 questions.** They come in 5 batches of 4. Nothing gets built until you finish.
 3. **Approve each install.** The AI shows every install command and waits for your OK before running it.
 4. **Check the result.** It tests its own setup and fixes problems. It will tell you only what needs you.
-5. **Use it every day.** These phrases run the daily skills:
+5. **Use it every day.** Open each new chat connected to the same project folder. These phrases run the daily skills:
    - `resume session` starts a new chat or a new AI tool from your files.
    - `save session` checkpoints a long chat without committing.
    - `end session` updates your files, commits, and pushes to GitHub.
