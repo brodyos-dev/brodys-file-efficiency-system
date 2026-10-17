@@ -1,0 +1,15 @@
+Brody's File Efficiency System turns your project into a folder of plain files that any AI can read and continue from. It starts with 20 multiple-choice questions, then builds a folder with your backlog, decisions, a journal for each topic (Unreal code, Blender, assets, bugs), and an asset register that tracks licenses and AI use for Steam. It sets up Git and GitHub with safety hooks, installs Matt Pocock's engineering skills, and builds custom skills for tasks you repeat. It also recommends a model and effort level per task to save tokens, and it checks and repairs its own setup.
+
+
+How to use it
+
+Install the skill. In Claude, go to Settings → Customize → Skills, upload the .skill file, and turn it on. If you use a different AI tool, paste the .md file into a new chat instead.
+Start it. Open a new chat and type: run the file efficiency system.
+Answer the 20 questions. They come in 5 batches of 4. Nothing gets built until you finish.
+Approve each install. The AI shows every install command and waits for your OK before running it.
+Check the result. It tests its own setup and fixes problems. It will tell you only what needs you.
+Use it every day. These phrases run the daily skills:
+resume session starts a new chat or new AI tool from your files.
+save session checkpoints a long chat without committing.
+end session updates your files, commits, and pushes to GitHub.
+Change it anytime. Say check the setup to repair it, customize the file efficiency system to adjust it, or build a skill for X to add one. 
