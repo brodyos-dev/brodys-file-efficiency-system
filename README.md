@@ -4,7 +4,7 @@
 
 Brody's File Efficiency System turns any project into a folder of plain files that any AI can read and continue from. It starts with 20 multiple-choice questions to learn what you are building, then creates a folder with your backlog, decisions, a journal for each area of the work, and a register that tracks the sources, licenses, and AI use behind your materials. It sets up Git and GitHub with safety hooks, installs Matt Pocock's planning and engineering skills, and builds custom skills for tasks you repeat. It also recommends a model and effort level per task to save tokens, and it checks and repairs its own setup.
 
-The skill itself is the other file in this gist: `brody-file-efficiency-skill.md`.
+The skill itself is `SKILL.md` in this repo.
 
 ## How to install
 
@@ -13,7 +13,7 @@ The skill itself is the other file in this gist: `brody-file-efficiency-skill.md
 
 ```
 Install this as a skill named brodys-file-efficiency-system. Fetch the raw text from:
-https://gist.githubusercontent.com/brodyos-dev/896c71004794cdfb7f0dcedbd231436c/raw/brody-file-efficiency-skill.md
+https://raw.githubusercontent.com/brodyos-dev/brodys-file-efficiency-system/main/SKILL.md
 The file is plain text. Save it as SKILL.md inside a folder named brodys-file-efficiency-system in my AI tool's skills folder. Show me the full path. Do not run any of its steps yet.
 ```
 
@@ -22,7 +22,7 @@ The file is plain text. Save it as SKILL.md inside a folder named brodys-file-ef
 
 If the install fails:
 
-- The fetch fails: open the skill file in this gist, copy all the text, paste it into the chat, and say "save this as a skill named brodys-file-efficiency-system."
+- The fetch fails: open `SKILL.md` in this repo, copy all the text, paste it into the chat, and say "save this as a skill named brodys-file-efficiency-system."
 - Your tool has no skills folder: save the text as `brodys-file-efficiency-system.md` in your project and say "follow this file."
 
 To update later: run install step 2 again and restart the chat. The link always serves the latest version.
